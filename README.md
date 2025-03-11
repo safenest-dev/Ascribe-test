@@ -16,8 +16,8 @@ This URL shortener allows you to create shortened versions of long URLs, making 
 ## Installation
 
 ### 1. Clone the Repository
- ssh: git@github.com:safenest-dev/Ascribe-test.git
- https: https://github.com/safenest-dev/Ascribe-test.git
+ ssh: `git@github.com:safenest-dev/Ascribe-test.git`
+ https: `https://github.com/safenest-dev/Ascribe-test.git`
 
 ### Client Setup
 
