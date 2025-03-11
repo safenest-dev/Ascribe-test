@@ -1,27 +1,75 @@
-The URL shortner app.
-
-Steps to test the app
-1. clone the repository.
-2. It has the client and server folders, you will set up both apps;
-   
-#   Setup the client:
-   
-   i.     Navigate into the client directory and run "npm install" to install all dependencies.
-   ii.    Create an env file in the root of this folder (client/.env) that will hold the url for your backend server, in this example, the server will be running on "port 5000",
-         if your are testing this locally, just ensure this points to the port you are running your server on in the server set up, as it is, if youre not changing anything
-         your env should have  VITE_API_URL and for this example VITE_API_URL=http://localhost:<YOUR_SERVER_PORT_NUMBER>.
-   iii.  Run "npm run dev" to start the client side application.
-
-#   Setup the server:
-
-   i. Navigate to the server folder and run "npm install" to install all packages and dependecies.
-   ii. Run "node index.js" to start the server
-
-
-Note: the port being used by the server should be the one you are referencing in the env file.
-
-   
- For this project, I decided to use sqlite for its simplicity.
-
+# URL Shortener App
  
+## Overview
+
+This URL shortener allows you to create shortened versions of long URLs, making them easier to share and track. The application consists of:
+
+- A client-side frontend built with Vite
+- A server-side backend using Node.js
+- SQLite database for data storage 
+
+## Prerequisites
+
+- Node.js (v14 or higher)
+- npm (Node Package Manager)
+
+## Installation
+
+### 1. Clone the Repository
+ ssh: git@github.com:safenest-dev/Ascribe-test.git
+ https: https://github.com/safenest-dev/Ascribe-test.git
+
+### Client Setup
+
+1. Navigate to the client directory: 
+   cd client 
+
+2. Install dependencies: 
+   npm install 
+
+3. Create environment file:
+   - Create a .env file in the client directory
+   - Add the following variable: 
+     VITE_API_URL=http://localhost:5000 
+     *Note: Replace 5000 with your server port number if different*
+
+4. Start the client application: 
+   npm run dev 
+
+### Server Setup
+
+1. Navigate to the server directory: 
+   cd server 
+
+2. Install dependencies: 
+   npm install 
+
+3. Start the server: 
+   node index.js 
+
+*Important: Make sure the port specified in your server matches the port in the client's .env file.*
+
+## Usage
+
+1. Open your browser and navigate to the client application (port specified by Vite)
+2. Enter a long URL in the input field
+3. Click "Shorten URL"
+4. Copy and share your shortened URL
+
+## Technologies
+
+- **Frontend**: 
+  - Vite (React build tool)
+  - React.js
+  - Axios for HTTP requests
+  - Vitest, React Testing Library (testing)
+
+- **Backend**:
+  - Node.js
+  - Express.js
+  - SQLite for database storage
+
+## Why SQLite?
+
+This project uses SQLite for data storage due to its simplicity and ease of setup. SQLite is a self-contained, serverless database that requires minimal configuration, making it perfect for demonstrations and small to medium-sized applications.
  
