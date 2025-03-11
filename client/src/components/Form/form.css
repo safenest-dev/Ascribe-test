@@ -1,7 +1,7 @@
-.url-form {
-    margin: 2rem 0;
+.url-form { 
     width: 100%;
     max-width: 700px;
+    margin: 2rem auto;
   }
   
   .input-group {
@@ -36,7 +36,7 @@
   
   .url-input:focus {
     background: #f8faff;
-    box-shadow: inset 0 0 5px rgba(52, 152, 219, 0.2);
+    box-shadow: inset 0 0 5px rgba(46, 122, 173, 0.889);
   }
   
   .submit-button {

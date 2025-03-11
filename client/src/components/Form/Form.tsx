@@ -1,76 +1,95 @@
-import React, { useEffect, useState } from 'react';
-import './form.css';
-import { shortenUrl } from '../../services/api';
+import React, { useEffect, useState, useRef } from 'react'
+import './form.css'
+import { shortenUrl } from '../../services/api'
 
 interface ShortenedUrl {
-  shortCode: string;
-  originalUrl: string;
+  shortCode: string
+  originalUrl: string
+  codeExists?: boolean
+  urlExists?: boolean
 }
 
 interface FormProps {
-  setShortenedUrl: (url: ShortenedUrl | null) => void;
-  setIsLoading: (loading: boolean) => void;
-  setError: (error: string) => void;
-  shortenedUrl: ShortenedUrl | null;  // Correct type: ShortenedUrl | null
+  setShortenedUrl: (url: ShortenedUrl | null) => void
+  setIsLoading: (loading: boolean) => void
+  setError: (error: string) => void
+  shortenedUrl: ShortenedUrl | null
 }
 
-function Form({ setShortenedUrl, setIsLoading, setError, shortenedUrl }: FormProps) {
-  const [url, setUrl] = useState<string>('');
+function Form({
+  setShortenedUrl,
+  setIsLoading,
+  setError,
+  shortenedUrl,
+}: FormProps) {
+  const [url, setUrl] = useState<string>('')
+   
+  const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    if (!shortenedUrl) {
-      setUrl('');
+    if (!shortenedUrl && inputRef.current) { 
+      inputRef.current.focus()
     }
-  }, [shortenedUrl]);
+  }, [shortenedUrl])
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (!url) {
-      setError('Please enter a URL');
-      return;
+      setError('Please enter a URL')
+      return
     }
 
-    // Basic URL validation
-    let urlToShorten = url;
+    let urlToShorten = url
     if (!/^https?:\/\//i.test(url)) {
-      urlToShorten = 'https://' + url;
+      urlToShorten = 'https://' + url
     }
 
     try {
-      setIsLoading(true);
-      setError('');
-
-      const data = await shortenUrl(urlToShorten);
-      // Assuming the data returned from shortenUrl matches the ShortenedUrl format
+      setIsLoading(true)
+      setError('')
+      const data = await shortenUrl(urlToShorten)
       setShortenedUrl({
         shortCode: data.shortCode,
         originalUrl: data.originalUrl,
-      });
-    } catch (err: any) {
-      setError(err.message || 'Failed to shorten URL');
-      setShortenedUrl(null); // Ensure null is passed
+        codeExists: data.codeExists,
+        urlExists: data.urlExists
+      })
+      console.log(data)
+    } catch (err) {
+      setError(err.message || 'Failed to shorten URL')
+      setShortenedUrl(null)
     } finally {
-      setIsLoading(false);
+      setTimeout(() => {
+        setIsLoading(false)
+      }, 1500)
     }
-  };
+  }
 
   return (
-    <form onSubmit={handleSubmit} className="url-form" aria-label="URL Shortener Form">
-      <div className="input-group">
+    <form
+      onSubmit={handleSubmit}
+      className='url-form'
+      aria-label='URL Shortener Form'
+    >
+      <div className='input-group'>
         <input
-          type="text"
-          placeholder="Paste your long URL here"
+          ref={inputRef}  
+          type='text'
+          placeholder='Paste your long URL here'
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          className="url-input"
+          className='url-input'
         />
-        <button type="submit" className="submit-button">
+        <button
+          type='submit'
+          className='submit-button'
+        >
           Shorten
         </button>
       </div>
     </form>
-  );
+  )
 }
 
-export default Form;
+export default Form
